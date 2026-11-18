@@ -7,13 +7,17 @@ async function submitForm(page, username, password, button) {
   await page.getByRole("button", { name: button }).click();
 }
 
-// Every test starts in a fresh browser tab, so the in-memory store is empty.
+// Every test starts in a fresh browser tab, so the in-m
+// emory store is empty.
 // Each test therefore registers its own user first.
+let username;
 test.beforeEach(async ({ page }) => {
+  username = `alice_${Date.now()}`;       // new name every time
   await page.goto("/#/register");
-  await submitForm(page, "alice", "secret123", "Register");
-  await expect(page.getByRole("alert")).toHaveText("Account created for alice. Please log in.");
+  await submitForm(page, username, "secret123", "Register");
+  await expect(page.getByRole("alert")).toHaveText(`Account created for ${username}. Please log in.`);
 });
+
 
 // Happy path
 test("registered user can log in", async ({ page }) => {
