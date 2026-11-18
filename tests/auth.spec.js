@@ -21,15 +21,15 @@ test.beforeEach(async ({ page }) => {
 
 // Happy path
 test("registered user can log in", async ({ page }) => {
-  await submitForm(page, "alice", "secret123", "Log in");
+  await submitForm(page, username, "secret123", "Log in");
 
   await expect(page).toHaveURL(/#\/welcome$/);
-  await expect(page.getByRole("heading", { name: "Welcome, alice!" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Welcome, ${username}!" })).toBeVisible();
 });
 
 // Sad path
 test("login with invalid credentials shows an error", async ({ page }) => {
-  await submitForm(page, "alice", "wrong-pass1", "Log in");
+  await submitForm(page, username, "wrong-pass1", "Log in");
 
   await expect(page.getByRole("alert")).toHaveText("Invalid username or password");
   await expect(page).toHaveURL(/#\/login$/);
