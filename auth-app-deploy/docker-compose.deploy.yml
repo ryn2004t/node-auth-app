@@ -14,7 +14,7 @@ services:
       retries: 10
 
   backend:
-    build: ./backend
+    image: rayanhub/auth-app:backend
     environment:
       DATABASE_URL: postgres://app:app_password@db:5432/auth
       PORT: 3000
@@ -23,11 +23,9 @@ services:
         condition: service_healthy
 
   frontend:
-    build:
-      context: .
-      dockerfile: Dockerfile.multistage
+    image: rayanhub/auth-app:frontend
     ports:
-      - "5173:80"
+      - "5173:5173"
     depends_on:
       - backend
 
