@@ -24,7 +24,7 @@ test("registered user can log in", async ({ page }) => {
   await submitForm(page, username, "secret123", "Log in");
 
   await expect(page).toHaveURL(/#\/welcome$/);
-  await expect(page.getByRole("heading", { name: `Welcome backkk, ${username}!` })).toBeVisible();
+  await expect(page.getByRole("heading", { name: `Welcome backkk123, ${username}!` })).toBeVisible();
 });
 
 // Sad path
